@@ -2,14 +2,15 @@
 
 const express = require("express");
 const router = express.Router();
-const uuid = require("uuid/v1");
+const { v4: uuidv4 } = require('uuid');
 var bcrypt = require("bcryptjs");
 const db = require("../config/database");
 const jwt = require('jsonwebtoken');
+const auth = require('./middleware/authentication');
 
 router.post("/register", async (req, res) => {
   let { name, email, phone_number, password } = req.body;
-  let id = uuid();
+  let id = uuidv4();
 
   try {
     var conn = await db.getConnection();
@@ -45,7 +46,7 @@ router.post("/register", async (req, res) => {
         });
     }
   } catch (error) {
-    console.log(error);
+    console.log('/register ||',error);
     conn && conn.release()
     res.status(error.status || 500).json({ message: error.message } || error);
   }
@@ -56,9 +57,9 @@ router.post("/login", async (req, res) => {
   try {
     var conn = await db.getConnection()
     let [find] = await conn.execute("SELECT email,password FROM user where email=?",[email])
-    console.log(find[0])
     if(find.length > 0){
         if(bcrypt.compareSync(password, find[0].password)){
+          console.log('berhasil')
             res.status(200).json({
                 message: 'Login Berhasil',
                 token: jwt.sign({
@@ -78,12 +79,19 @@ router.post("/login", async (req, res) => {
             message : 'Email Not Found'
         }
     }
+    console.log('/login || BERHASIL')
     conn.release()
   } catch (error) {
-    console.log('/login || ',error)
     conn && conn.release()
     res.status(error.status || 500).json({ message: error.message } || error);
   }
 });
+
+router.post('/check_auth',auth,(req,res,next)=>{
+  console.log('ss')
+  res.status(200).json({
+    mesaage: 'Authenticated'
+  })
+})
 
 module.exports = router;

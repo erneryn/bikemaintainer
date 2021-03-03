@@ -2,7 +2,7 @@
 
 const express = require("express");
 const router = express.Router();
-const uuid = require("uuid/v1");
+const { v4: uuidv4 } = require('uuid');
 var bcrypt = require("bcryptjs");
 const db = require("../config/database");
 const jwt = require('jsonwebtoken');
@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken');
 router.post("/add", async (req, res) => {
   let { bike_id,part_change,action,notes } = req.body;
   console.log(req.body)
-  let id = uuid();
+  let id = uuidv4();
   try {
     if(bike_id == "" || bike_id == null){
         throw {
