@@ -4,7 +4,7 @@
   "description": "an app to track the service  history of your bike",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "test": "test"
   },
   "author": "erneryn",
