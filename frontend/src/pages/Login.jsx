@@ -12,10 +12,12 @@ const Login = () => {
   const [password, setPassword] = useState(null);
   const [cookies, setCookie] = useCookies(["token"]);
   const [open,setOpen] = useState(false)
+  const [loading,setLoading]= useState(false)
   const history = useHistory();
 
   const handleSubmit = async () => {
     try {
+      setLoading(true)
       const _login = await axios.post(urlServer + "/user/login", {
         email,
         password,
@@ -26,10 +28,11 @@ const Login = () => {
       setCookie("token", _login.data.token, {
         expires: date,
       });
-
+      setLoading(false)
       history.push("/dashboard");
     } catch (error) {
       setOpen(true)
+      setLoading(false)
     }
   };
 
@@ -73,12 +76,17 @@ const Login = () => {
             className="rounded-lg h-12 w-full sm:px-10 text-lg text-left bg-gray-400 border border-transparent focus:outline-none focus:ring-2 focus:ring-gray-700 focus:border-transparent"
           ></input>
         </div>
-        <button
+        {
+          loading ?
+          <h1>Waiting...</h1>
+          :
+          <button
           onClick={(e) => handleSubmit(e)}
           className="bg-blue-500 rounded-2xl text-white md:text-3xl md:px-20 px-10 py-2 leading-10 absolute right-0 bottom-0 -mb-7 mr-8"
-        >
+          >
           LOGIN
         </button>
+        }
       </div>
     </div>
     <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical : 'top', horizontal: 'center' }}>
