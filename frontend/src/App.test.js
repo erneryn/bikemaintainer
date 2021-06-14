@@ -1,8 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import { shallow, mount}  from 'enzyme'
+import { CookiesProvider } from "react-cookie";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+
+describe("It should render an APP",()=>{
+  it("render app without crashing",()=>{
+    const wrapper = shallow(<App/>)
+  })
+})

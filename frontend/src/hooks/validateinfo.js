@@ -26,7 +26,7 @@ export default function validateinfo(values) {
   if (!values.shifter) errors.shifter = "Shifter Required!";
   if (!values.cassete) errors.cassete = "Cassete Required!";
   if (!values.saddle) errors.saddle = "Saddle Required!";
-  if (!values.handlebars) errors.handlebar = "Handlebars Required!";
+  if (!values.handlebars) errors.handlebars = "Handlebars Required!";
   if (!values.brake) errors.brake = "brake Required!";
   if (!values.ws) errors.ws = "wheelset Required!";
   if (!values.tire) errors.tire = "tire Required!";

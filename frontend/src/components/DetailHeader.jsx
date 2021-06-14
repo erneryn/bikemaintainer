@@ -475,6 +475,8 @@ export default function DetailHeader({ serviceData, FetchData }) {
                 <p className="text-l text-gray-600 opacity-50">
                   {serviceData.email}
                 </p>
+                <span className="text-gray-700">Qr Code :</span>
+                <p>{serviceData.qr_code}</p>
               </div>
               <div>
                 <img src={qrCodeLink} alt="" className="h-10 xl:h-28" />

@@ -3,7 +3,6 @@ import { urlServer } from '../config'
 import React, { useState, useEffect, useContext, createContext } from 'react'
 import { useCookies } from 'react-cookie';
 
-s
 const authContext = createContext()
 
 export function ProvideAuth({children}){

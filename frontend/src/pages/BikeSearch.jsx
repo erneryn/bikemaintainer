@@ -28,7 +28,7 @@ const Search = () => {
   return (
     <MainLayout>
     <div className="xl:w-5/12 md:w-3/4">
-      <h1 className="text-4xl mb-4">Search</h1>
+      <h1 id="title-seacrh" className="text-4xl mb-4">Search</h1>
       <div className="w-3/6 mb-7 border-gray-600 border-b-2"></div>
       <div className="bg-gray-500 my-2 p-6  rounded-2xl flex flex-col justify-center items-center relative">
         <div className="w-full">

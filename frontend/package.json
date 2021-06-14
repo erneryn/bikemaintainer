@@ -11,6 +11,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "enzyme-to-json": "^3.6.2",
     "qrcode": "^1.4.4",
     "react": "^17.0.1",
     "react-cookie": "^4.0.3",
@@ -53,6 +54,8 @@
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.3",
     "autoprefixer": "^9.8.6",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "postcss": "^7.0.35",
     "redux-devtools": "^3.7.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3"

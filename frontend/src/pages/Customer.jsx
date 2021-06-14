@@ -67,6 +67,7 @@ const Customer = () => {
     return (
       <div className="fixed top-3/4 ml-2 bg-yellow-500 p-2 rounded-xl z-50">
         <div>
+          <a href="https://wa.me/621370914040" target="_blank">
           <svg
             className="w-7 xl:w-10"
             viewBox="0 0 45 45"
@@ -82,6 +83,7 @@ const Customer = () => {
               fill="white"
             />
           </svg>
+          </a>
         </div>
         <div className="mt-5">
           <a href="https://www.instagram.com/rucciartcycles/" target="_blank">
