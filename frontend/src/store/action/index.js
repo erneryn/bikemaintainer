@@ -10,9 +10,14 @@ export const getData = ()=>{
                 token : cookies.get('token')
             }
         }).then(res=>{
+            const data = res.data.data
+            const formatedDate = data.map((e)=> {
+                e.tanggal = new Date(e.tanggal)
+                return e
+            })
             dispatch({
                 type: 'GETBIKEDATA',
-                payload: res.data.data
+                payload: data
             })
         }).catch(err=>{
             console.log(err,'<<<<<<<<<,')

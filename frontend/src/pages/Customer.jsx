@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Axios from "axios";
 import { urlServer } from "../config";
+import { DateTime } from 'luxon'
 
 const Customer = () => {
   const { qr_code } = useParams();
@@ -32,25 +33,8 @@ const Customer = () => {
   };
 
   const GenerateDate = (_Date) => {
-    let fullDate = new Date(_Date);
-    let day = fullDate.getDate().toString().padStart(2, "0");
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    let month = monthNames[fullDate.getMonth()];
-    let year = fullDate.getFullYear();
-    return `${day} ${month} ${year}`;
+    let dt = DateTime.fromISO(_Date.split(' ')[0]).toISODate()
+    return dt
   };
 
   useEffect(() => {
@@ -117,7 +101,7 @@ const Customer = () => {
           <div className="bg-white h-56 rounded-3xl -mt-10 xl:mt-0  md:static md:rounded-l-none p-6">
             <div className="mt-10 xl:mt-0   border-gray-200 border-b-2 pb-3 flex items-baseline justify-between">
               <div>
-                <h1 className="text-2xl xl:text-3xl text-gray-600">
+                <h1 className="md:text-2xl sm:text-xl text-xs xl:text-3xl text-gray-600">
                   {bikeData.name}
                 </h1>
                 <h3 className="text-sm text-gray-600 opacity-50">
@@ -125,15 +109,15 @@ const Customer = () => {
                 </h3>
               </div>
             </div>
-            <div className="mt-4 flex justify-between xl:justify-betwee">
+            <div className="mt-4  sm:flex justify-between xl:justify-between w-full">
               <div>
-                <h2>Email</h2>
-                <h3 className="text-sm text-gray-600 opacity-50">
+                <h2 className="text-xs sm:text-xl">Email</h2>
+                <h3 className="sm:text-sm text-xs text-gray-600 opacity-50">
                   {bikeData.email}
                 </h3>
               </div>
-              <div className="xl:mr-5">
-                <h2 className="xl:text-xl">Last Service</h2>
+              <div>
+                <h2 className="xl:text-xl text-xs ">Last Service</h2>
                 <h3 className="text-sm xl:text-2xl text-gray-600 opacity-50">
                   {date}
                 </h3>

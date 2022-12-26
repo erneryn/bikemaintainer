@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import DialogDelete from "./DialogDelete";
 import { useState } from "react";
 import ServiceModal from './ServiceModal'
+import { DateTime } from 'luxon'
 
 export default function DetailService({ historyService,FetchData }) {
   const [cookies] = useCookies(["token"]);
@@ -12,25 +13,9 @@ export default function DetailService({ historyService,FetchData }) {
   const [dataSelected,setDataSelected] = useState([])
 
   const GenerateDate = (_Date) => {
-    let fullDate = new Date(_Date);
-    let day = fullDate.getDate().toString().padStart(2, "0");
-    const monthNames = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    let month = monthNames[fullDate.getMonth()];
-    let year = fullDate.getFullYear();
-    return `${day} ${month} ${year}`;
+    let dt = DateTime.fromISO(_Date.split(' ')[0]).toISODate()
+    console.log(dt)
+    return dt
   };
 
   const List = (list) => {

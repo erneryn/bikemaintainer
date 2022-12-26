@@ -20,6 +20,7 @@ const AddNewCustomer = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [open, setOpen] = useState(false);
+  const [submitClicked,setSubmitClicked] = useState(false)
 
   const openDialogFile = () => {
     const input = document.getElementById("file-upload");
@@ -49,11 +50,14 @@ const AddNewCustomer = () => {
 
 
   function addNewData() {
+    setSubmitClicked(true)
     const Form = new FormData();
     Form.append("name", values.name);
     Form.append("email", values.email);
     Form.append('bike_name',values.bike_name);
-    Form.append("no_handphone", values.no_handphone);
+    let no_handphone = values.no_handphone
+    let formated_no_hp = no_handphone.replace(/\s+/g, '').trim()
+    Form.append("no_handphone", formated_no_hp);
     Form.append("bikeImage", file);
     Form.append("frame", values.frame);
     let drivetrain = {
@@ -90,6 +94,7 @@ const AddNewCustomer = () => {
         history.push("/dashboard");
       })
       .catch((err) => {
+        setSubmitClicked(false)
         setOpen(true)
       });
   }
@@ -244,7 +249,7 @@ const AddNewCustomer = () => {
                       <img
                         src={preview}
                         id="image-preview"
-                        className="w-full h-80 rounded-2xl object-cover"
+                        width="200"
                       />
                     )}
                   </div>
@@ -495,12 +500,17 @@ const AddNewCustomer = () => {
                 </div>
               </div>
               {/* END BIKE SPECS */}
-              <button
+              {
+                submitClicked ?
+                <span>Waiting...</span> 
+                :
+                <button
                 type="submit"
                 className="bg-blue-500 rounded-3xl py-3 px-9 my-4 text-xl text-gray-400"
-              >
+                >
                 Add New
               </button>
+              }
             </form>
           </div>
         </div>

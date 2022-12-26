@@ -4,7 +4,7 @@ import axios from "axios";
 import { urlServer, domain } from "../config";
 import { useParams, useHistory } from "react-router-dom";
 import { useCookies } from "react-cookie";
-
+import { DateTime } from 'luxon'
 
 import DialogDelete from './DialogDelete'
 
@@ -40,25 +40,9 @@ export default function DetailHeader({ serviceData, FetchData }) {
     if (serviceData.history) {
       if (serviceData.history.length !== 0) {
         let date = serviceData.history[0].created;
-        let fullDate = new Date(date);
-        let day = fullDate.getDate().toString().padStart(2, "0");
-        const monthNames = [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December",
-        ];
-        let month = monthNames[fullDate.getMonth()];
-        let year = fullDate.getFullYear();
-        setServiceDate(`${day} ${month} ${year}`);
+        let dt = DateTime.fromISO(date.split(' ')[0]).toISODate()
+
+        setServiceDate(dt);
       }
     }
   };

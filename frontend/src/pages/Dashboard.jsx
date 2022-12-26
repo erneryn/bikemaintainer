@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 const Dashboard = () => {
   const [cookies, setCookie, removeCookie] = useCookies(['token']);
   const [modals, triggerModals] = useState(false);
-  const [customerData, setCustomerData] = useState(null);
+  const [customerData, setCustomerData] = useState([]);
   const [selectedFilter,setSelectedFilter] = useState('name')
 
 
@@ -47,6 +47,9 @@ const Dashboard = () => {
       {
         Header: "Last Service",
         accessor: "tanggal",
+        Cell: ({ cell: { value } }) => value.toDateString(),
+        sortType: "datetime"
+
       },
     ],
     []
@@ -73,14 +76,19 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
+    console.log(_data)
     setCustomerData(_data.bikeData);
   }, [_data]);
+
+  
+
 
   return (
       <AdminLayout>
         <div className="absolute top-0 right-0 md:mr-28 mt-20">
           <button onClick={()=> clearSession()} className="bg-gray-600 text-white px-2  py-2 rounded-md"><span className="mr-1 bg-gray-600 opacity-20 p-2 relative">X</span> Logout</button>
         </div>
+        {
         <div className="bg-white flex justify-center mx-6 md:mx-28 py-10 rounded-3xl shadow-sm flex-col items-center">
           <div className="flex justify-start w-full px-20 mb-10">
             <Link to="/add-new-bike">
@@ -93,8 +101,7 @@ const Dashboard = () => {
             <div className="ml-auto"></div>
             <input
               placeholder="Search"
-              onChange={handleFilter
-              }
+              onChange={handleFilter}
               className="ml-3 px-6 border placeholder-gray-600 border-gray-500 rounded-3xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             ></input>
             <div>
@@ -108,9 +115,12 @@ const Dashboard = () => {
                 <option value="email">Email</option>
               </select>
             </div>
-          </div>
-          {customerData && <Table columns={columns} data={customerData} />}
+          </div>         
+          
+         {customerData &&
+          <Table columns={columns} data={customerData} />}
         </div>
+        }
       {modals && (
         <Modals triggerModals={triggerModals}/>
       )}

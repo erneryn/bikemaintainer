@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "enzyme-to-json": "^3.6.2",
+    "luxon": "^1.27.0",
     "qrcode": "^1.4.4",
     "react": "^17.0.1",
     "react-cookie": "^4.0.3",
