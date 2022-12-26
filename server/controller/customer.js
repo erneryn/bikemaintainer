@@ -83,15 +83,15 @@ router.post("/get", auth, async (req, res) => {
     let query = "";
     if (param_string == "") {
       query =
-        "SELECT id,name,bike_name,no_handphone,qr_code,email,COALESCE(url_image,'') url_image, history.tanggal,frame,drivetrain,cockpit,brake,wheelset FROM bike_data bd LEFT JOIN ( SELECT DATE_FORMAT(MAX(created),'%d %M %Y') tanggal, bike_id FROM service_history sh GROUP BY bike_id ) history ON history.bike_id = bd.id ORDER BY created DESC";
+        "SELECT id,name,bike_name,no_handphone,qr_code,email,COALESCE(url_image,'') url_image, history.tanggal,frame,drivetrain,cockpit,brake,wheelset FROM bike_data bd LEFT JOIN ( SELECT MAX(created) tanggal, bike_id FROM service_history sh GROUP BY bike_id ) history ON history.bike_id = bd.id ORDER BY history.tanggal DESC";
     } else if (param_string == "name") {
       query =
-        "SELECT id,name,bike_name,no_handphone,qr_code,email,COALESCE(url_image,'') url_image, history.tanggal,frame,drivetrain,cockpit,brake,wheelset FROM bike_data bd LEFT JOIN ( SELECT DATE_FORMAT(MAX(created),'%d %M %Y') tanggal, bike_id FROM service_history sh GROUP BY bike_id ) history ON history.bike_id = bd.id WHERE name LIKE '%" +
+        "SELECT id,name,bike_name,no_handphone,qr_code,email,COALESCE(url_image,'') url_image, history.tanggal,frame,drivetrain,cockpit,brake,wheelset FROM bike_data bd LEFT JOIN ( SELECT MAX(created) tanggal, bike_id FROM service_history sh GROUP BY bike_id ) history ON history.bike_id = bd.id WHERE name LIKE '%" +
         name +
         "%';";
     } else {
       query =
-        "SELECT id,name,bike_name,no_handphone,qr_code,email,COALESCE(url_image,'') url_image, history.tanggal,frame,drivetrain,cockpit,brake,wheelset FROM bike_data bd LEFT JOIN ( SELECT DATE_FORMAT(MAX(created),'%d %M %Y') tanggal, bike_id FROM service_history sh GROUP BY bike_id ) history ON history.bike_id = bd.id WHERE " +
+        "SELECT id,name,bike_name,no_handphone,qr_code,email,COALESCE(url_image,'') url_image, history.tanggal,frame,drivetrain,cockpit,brake,wheelset FROM bike_data bd LEFT JOIN ( SELECT MAX(created) tanggal, bike_id FROM service_history sh GROUP BY bike_id ) history ON history.bike_id = bd.id WHERE " +
         param_string +
         "=:" +
         param_string;
