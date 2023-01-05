@@ -67,7 +67,11 @@ const Dashboard = () => {
   }
 
   const clearSession = () =>{
-    removeCookie('token')
+    /* global google */
+    google.accounts.id.revoke('erneryn@gmail.com', done => {
+      console.log('consent revoked');
+      removeCookie('token')
+    });    
   }
  
 

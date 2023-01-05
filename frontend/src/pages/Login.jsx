@@ -36,10 +36,44 @@ const Login = () => {
     }
   };
 
+
+  const handlerGoogleCallback = async (response) => {
+    console.log("Encoded JWT ID token: " + response.credential);
+    try {
+      setLoading(true)
+      const _login = await axios.post(urlServer + "/user/login/google", {
+        token : response.credential
+      });
+
+      let date = new Date();
+      date.setDate(date.getDate() + 1);
+      setCookie("token", _login.data.token, {
+        expires: date,
+      });
+      setLoading(false)
+      history.push("/dashboard");
+    } catch (error) {
+      setOpen(true)
+      setLoading(false)
+    }
+  }
+
   useEffect(()=>{
     if(cookies.token){
       history.push('/dashboard')
     }
+    
+    /* global google */
+
+    google.accounts.id.initialize({
+      client_id: '670254478282-p1nlehdg3355sjt48u1tmfbbbnv46uj8.apps.googleusercontent.com',
+      callback: handlerGoogleCallback
+    })
+    google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      { theme: "outline", size: "large" }  // customization attributes
+      );     
+      
   })
 
   const Alert = (props)=> {
@@ -87,6 +121,9 @@ const Login = () => {
           LOGIN
         </button>
         }
+      </div>
+      <div className="mt-10">
+        <div id="buttonDiv"></div>
       </div>
     </div>
     <Snackbar open={open} autoHideDuration={2000} onClose={handleClose} anchorOrigin={{ vertical : 'top', horizontal: 'center' }}>
